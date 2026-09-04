@@ -1,5 +1,5 @@
-previstos = {"P1", "P2", "P3"}
-entregues = {"P2", "P3", "P4"}
+previstos = {"P1", "P2", "P3", "P4", "P5", "P35"}
+entregues = {"P2", "P3", "P4", "P6", "P7"}
 
 ausentes = previstos - entregues
 inesperados = entregues - previstos
