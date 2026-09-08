@@ -25,8 +25,24 @@ def cadastro():
         list.append(dicionario)
     return list
 
+# função de avido
+def aviso():
+    print("Não tem homens que goste de Natação")
+
 lista = cadastro()
 cont = 0
 soma = 0
 print(lista)
 
+quantidade = int(input("Digite a Quantidade: "))
+
+for i in range(quantidade):
+    if lista[i]['sexo'] == 'm' and lista[i]['esporte'] == 'natação':
+        soma = soma + lista[i]['idade']
+        cont += 1
+
+if cont == 0:
+    aviso()
+else:
+    media = soma / cont
+    print(f"A idade media de homens que fazem Natação e {media}")
