@@ -97,6 +97,7 @@ soma(10, 18)
 # referencia pode ser o padrao de uma formula
 # Obs: Parametro padrao de ve ser sempre o ultimo dos ragumentos na função.
 # def medida(numero=60, referencia): SyntaxErro: Parameter without a default
+
 def medida(numero, referencia=60): # Correto
     if numero > referencia:
         print(f'{numero} é maior que {referencia}')
@@ -106,8 +107,58 @@ def medida(numero, referencia=60): # Correto
 medida(70)
 medida(30)
 
+# Exemplo 06
+# Pode ser os dois argumentos com parametros
+
+def medida(numero=75, referencia=60): # Correto
+    if numero > referencia:
+        print(f'{numero} é maior que {referencia}')
+    else:
+        print(f'{numero} é menor que {referencia}')
+
+medida()
+medida(40, 30)
+medida(70)
+---------------------------------------------------
+# Exemplo 07
+# Variaveis locais e globais para função
+
+nome = 'arroz' # UnboundLocalError
+
+def comida():
+    nome = nome + 'e miojo'
+    print(nome)
+
+comida()
+
+---------------------------------------
+
+# Exemplo 08
+# Variaveis locais e globais para função
+# Comando global
+
+nome = 'arroz'
+
+def comida():
+    global nome 
+    nome = nome + ' e miojo'
+    print(nome)
+
+comida()
+
+------------------------------------------
+
+
 """
 
-# Exemplo 06
+# Exemplo 09
+# Variaveis locais e globais para função
+# Comando nonlocal (para funçoes dentro de funçoes)
 
+def funFora():
+    total = 0
+    def funDentro():
+        total = total + 1
+        print(total)
+    return funDentro()
 
