@@ -148,13 +148,10 @@ comida()
 
 ------------------------------------------
 
-
-"""
-
 # Exemplo 09
 # Variaveis locais e globais para função
 # Comando nonlocal (para funçoes dentro de funçoes)
-
+# UnboundLocalError
 def funFora():
     total = 0
     def funDentro():
@@ -162,3 +159,36 @@ def funFora():
         print(total)
     return funDentro()
 
+funFora()
+
+-------------------------------------------
+
+# Exemplo 10
+# Variaveis locais e globais para função
+# Comando nonlocal (para funçoes dentro de funçoes)
+
+def funFora():
+    total = 0
+    def funDentro():
+        nonlocal total
+        total = total + 1
+        print(total)
+    return funDentro()
+
+funFora()
+
+"""
+
+# Exemplo 10
+# Variaveis locais e globais para função
+# Comando nonlocal (para funçoes dentro de funçoes)
+
+def funFora():
+    total = 0
+    def funDentro():
+        nonlocal total
+        total = total + 1
+        print(total)
+    return funDentro()
+
+funFora()
