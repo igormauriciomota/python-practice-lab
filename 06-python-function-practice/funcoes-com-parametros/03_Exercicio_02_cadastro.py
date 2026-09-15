@@ -13,5 +13,27 @@ Atente-se as regras:
  - Só é possivel realizar logout se o usuario estiver logado
 
 """
+usuario = {}
+logado = False
+
+def mudar_senha(usuario, logado):
+    if not logado:
+        print("Faça login primeiro.")
+        return usuario
+    if input("Senha atual: ") != usuario["senha"]:
+        print("Senha atual incorreta.")
+        return usuario
+    nova = input("Nova senha: ")
+    if not nova.strip() or nova != input("Confirme: "):
+        print("Senha vazia ou confirmação diferente.")
+        return usuario
+
+    usuario["senha"] = nova
+    print("Senha alterada.")
+    return usuario
+
+def logout(logado):
+    print("Logout realizado." if logado else "Voce não esta logado.")
+    return False
 
 
