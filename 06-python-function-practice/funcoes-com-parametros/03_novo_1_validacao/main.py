@@ -14,7 +14,7 @@ def ler_senha():
         return None
     return senha
 
-usuariu = {}
+usuario = {}
 logado = False
 
 def cadastrar(usuario):
@@ -24,10 +24,10 @@ def cadastrar(usuario):
         return usuario
     nome = input("Username: ").strip()
     senha = ler_senha()
-    if not nome or senha in None:
+    if not nome or senha is None:
         print("Preencha todos os campos.")
         return usuario
-    print("Cadastro realizadd.")
+    print("Cadastro realizado.")
     return {"username": nome, "senha": senha}
 
 def login(usuario, logado):
@@ -67,7 +67,7 @@ def escolher_opcao(logado):
     print("\n1 Cadastro\n2 Login\n3 Senha\n4 Logout\n0 Sair")
     return int(input("Escolha uma Opção: "))
 
-if __name__ == "__mai__":
+if __name__ == "__main__":
     # Importar este módulo não inicia o menu.
     while True:
         opcao = escolher_opcao(logado)
@@ -84,7 +84,7 @@ if __name__ == "__mai__":
         else:
             print("Opção invalida.")
 
-    print("Fim do Programa.")
+
 
 
 
