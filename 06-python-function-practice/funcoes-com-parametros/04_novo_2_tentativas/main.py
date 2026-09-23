@@ -43,3 +43,44 @@ def login(usuario, logado, tentariva):
             print("Tres falhas: login bloqueado por 30 segundos.")
     return correto
 
+def mudar_senha(usuario, logado):
+    if not logado:
+        print("Faça login primeiro.")
+        return usuario
+    if input("Senha atual: ") != usuario["senha"]:
+        print("Senha atual incorreta.")
+        return usuario
+    nova = input("Nova senha: ")
+    if not nova.strip() or nova != input("Confirme: "):
+        print("Senha vazia ou confirmação diferente.")
+        return usuario
+    usuario["senha"] = nova
+    print("Senha alterada.")
+    return usuario
+
+def logout(logado):
+    print("Logout realizado." if logado else "Voce não está logado.")
+    return False
+
+def escolher_opcao(logado):
+    print("\nStatus", "Logado" if logado else "Desconectado")
+    print("\n1 Cadastro\n2 Login\n3 Senha\n4 Logout\n0 Sair")
+    return int(input("Opção: "))
+
+if __name__ == "__main__":
+    # Importar este módulo não inicia o menu.
+    while True:
+        opcao = escolher_opcao(logado)
+        if opcao == 1:
+            usuario = cadastrar(usuario)
+        elif opcao == 2:
+            logado = login(usuario, logado, tentativas)
+        elif opcao == 3:
+            usuario = mudar_senha(usuario, logado)
+        elif opcao == 4:
+            logado = logout(logado)
+        elif opcao == 0:
+            break
+        else:
+            print("Opção Invalida.")    
+
