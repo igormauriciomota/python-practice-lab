@@ -23,5 +23,33 @@ def carregar():
         raise ValueError("Cadastro JSON com estrututa invalida.")
     return dados
 
+def cadastro(usuario):
+    # Bloqueia um segundo cadastro antes de pedir novos dados.
+    if usuario:
+        print("Já existe cadastro.")
+        return usuario
+    nome = input("Username: ").strip()
+    senha = input("Senha: ")
+    if not nome or not senha.strip():
+        print("Preencha todos os campos.")
+        return usuario
+    if senha != input("confirme a senha: "):
+        print("As senhas não coincidem.")
+        return usuario
+    print("Cadastro realizado.")
+    return {"username": nome, "senha": generate_password_hash(senha)}
+
+def login(usuario, logado):
+    if not usuario or logado:
+        print("Cadastre-se primeiro ou encerre a sessão atual.")
+        return logado
+    nome = input("Username: ").strip()
+    senha = input("Senha: ")
+    # and exige que as duas comparações sejam verdadeiras.
+    correto = nome == usuario["username"]
+    correto = correto and check_password_hash(usuario["senha"], senha)
+    print("Login realizado." if correto else "Dados incorretos.")
+    return correto
+
 
 
