@@ -56,5 +56,31 @@ def login(usuario, logado):
     print("Login realizado." if correto else "Dados incorretos.")
     return correto
 
+def mudar_senha(usuario, logado):
+    if not logado:
+        print("Faça login primeiro.")
+        return usuario
+    if not check_password_hash(usuario["senha"], input("Senha atual: ")):
+        print("Senha atual incorreta.")
+        return usuario
+    nova = input("Nova senha: ")
+    if not nova.strip() or nova != input("Confirme: "):
+        print("Senha vazia ou confirmação diferente.")
+        return usuario
+    # O dicionario e mutavel: esta atribuição altera seu conteudo.
+    usuario["senha"] = generate_password_hash(nova)
+    print("Senha alterada.")
+    return usuario
+
+def logout(logado):
+    print("Logado realizado." if logado else "Voce não está logado.")
+    return False
+
+def escolher_opcao(logado):
+    print("\nStatus:", "Logado" if logado else "Deslogado")
+    print("\n1 Cadastro\n2 Login\n3 Senha\n4 Logout\n0 Sair")
+    return int(input("Escolha a Opção: "))
+
+
 
 
