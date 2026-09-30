@@ -1,9 +1,14 @@
 """
+Volte à regra de cadastro único e grave o cadastro em usuario.json.
+Armazene um hash em vez da senha original e recupere o cadastro ao
+reiniciar.
+
 generate_password_hash produz a representação para armazenamento e
 check_password_hash verifica uma tentativa. Hash não é criptografia
 reversível. O arquivo temporário é substituído após a gravação; isso evita
 JSON parcialmente escrito, mas não resolve concorrência entre vários
 processos.
+
 
 """
 import json
