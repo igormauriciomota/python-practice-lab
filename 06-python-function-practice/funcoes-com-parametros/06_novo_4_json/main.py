@@ -28,7 +28,7 @@ def carregar():
         raise ValueError("Cadastro JSON com estrututa invalida.")
     return dados
 
-def cadastro(usuario):
+def cadastrar(usuario):
     # Bloqueia um segundo cadastro antes de pedir novos dados.
     if usuario:
         print("Já existe cadastro.")
@@ -76,10 +76,25 @@ def logout(logado):
     print("Logado realizado." if logado else "Voce não está logado.")
     return False
 
+
 def escolher_opcao(logado):
     print("\nStatus:", "Logado" if logado else "Deslogado")
     print("\n1 Cadastro\n2 Login\n3 Senha\n4 Logout\n0 Sair")
     return int(input("Escolha a Opção: "))
+
+
+if __name__ == "__main__":
+    # Falha explicita: não sobrescreve um arquivo invalido.
+    try:
+        usuario = carregar()
+    except (OSError, ValueError) as erro:
+        raise SystemExit(f"Não foi possivel ler o cadastro: {erro}")
+    # Importar este módulo não inicia o menu.
+    while True:
+        opcao = escolher_opcao(logado)
+        if opcao == 1:
+            usuario = cadastrar(usuario)
+
 
 
 
