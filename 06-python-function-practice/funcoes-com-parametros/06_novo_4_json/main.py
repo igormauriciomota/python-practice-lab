@@ -82,6 +82,19 @@ def escolher_opcao(logado):
     print("\n1 Cadastro\n2 Login\n3 Senha\n4 Logout\n0 Sair")
     return int(input("Escolha a Opção: "))
 
+def salvar(usuario):
+    # Grava primeiro em um arquivo temporario.
+    temporario = ARQUIVO.with_name(ARQUIVO.name + ".tmp")
+
+    temporario.write_text(
+        json.dumps(usuario, ensure_ascii=False, indent=4),
+        encoding="utf-8"
+    )
+
+    # Substitui o JSON após concluir a gravação.
+    temporario.replace(ARQUIVO)
+
+
 
 if __name__ == "__main__":
     # Falha explicita: não sobrescreve um arquivo invalido.
@@ -89,11 +102,50 @@ if __name__ == "__main__":
         usuario = carregar()
     except (OSError, ValueError) as erro:
         raise SystemExit(f"Não foi possivel ler o cadastro: {erro}")
+
+    # Define o estado da sessão antes de usar o menu.
+    logado = False
+
     # Importar este módulo não inicia o menu.
     while True:
-        opcao = escolher_opcao(logado)
-        if opcao == 1:
-            usuario = cadastrar(usuario)
+        try:
+            opcao = escolher_opcao(logado)
+        except ValueError:
+            print("Digite um numero valido.")
+            continue
+
+        try:
+            if opcao == 1:
+                usuario = cadastrar(usuario)
+
+                if usuario: 
+                    salvar(usuario)
+
+            elif opcao == 2:
+                # Atualiza o estado da sessão com o retorno do login
+                logado = login(usuario, logado)
+
+            elif opcao == 3:
+                usuario = mudar_senha(usuario, logado)
+
+                if logado:
+                    salvar(usuario)
+
+            elif opcao == 4:
+                # Logout() retorna False
+                logado = logout(logado)
+
+            elif opcao == 0:
+                print("Programa encerrado.")
+                break
+
+            else:
+                print("Opção invalida. Escolha de 0 a 4.")
+
+        except OSError as erro:
+            raise SystemExit(
+                f"Não foi possivel salvar os dados: {erro}"
+            )
 
 
 
